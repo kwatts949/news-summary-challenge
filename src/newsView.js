@@ -11,7 +11,7 @@ class NewsView {
 
     submitButtonEl.addEventListener("click", () => {
       const searchTopic = searchInputEl.value;
-      console.log(searchTopic);
+
       this.client.getNewsInfo(searchTopic, (newsData) => {
         this.display(newsData);
       });
@@ -19,11 +19,14 @@ class NewsView {
 
     resetButton.addEventListener("click", () => {
       searchInputEl.value = "";
-      this.client.resetNotes();
+      this.resetNews();
     });
   }
 
   display(newsData) {
+    this.model.setNews(newsData);
+    console.log(newsData.response)
+
     const headlinesList = newsData.response.results;
 
     headlinesList.forEach((headline) => {
@@ -44,6 +47,22 @@ class NewsView {
       newsImg.className = "image";
       this.mainContainerEl.append(newsImg);
       this.mainContainerEl.append(space);
+    });
+  }
+
+  resetNews() {
+    const headlines = document.querySelectorAll(".headline");
+    const images = document.querySelectorAll(".image");
+    const spaces = document.querySelectorAll(".space");
+
+    headlines.forEach((headline) => {
+      headline.remove();
+    });
+    images.forEach((image) => {
+      image.remove();
+    });
+    spaces.forEach((space) => {
+      space.remove();
     });
   }
 }

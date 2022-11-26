@@ -3,6 +3,7 @@ const apiKey = require("../resources/apiKey");
 class NewsClient {
   constructor() {
     this.apiKey = apiKey;
+    this.url = ``;
   }
   getNewsInfo(searchInput, callback) {
     fetch(
@@ -12,32 +13,6 @@ class NewsClient {
       .then((data) => {
         callback(data);
       });
-  }
-
-  resetNotes() {
-    console.log("resetting");
-    const headlines = document.querySelectorAll(".headline");
-    const images = document.querySelectorAll(".image");
-    const spaces = document.querySelectorAll(".space");
-
-    fetch(this.url, {
-      method: "DELETE",
-    })
-      .then(
-        spaces.forEach((space) => {
-          space.remove();
-        })
-      )
-      .then(
-        headlines.forEach((headline) => {
-          headline.remove();
-        })
-      )
-      .then(
-        images.forEach((image) => {
-          image.remove();
-        })
-      );
   }
 }
 
