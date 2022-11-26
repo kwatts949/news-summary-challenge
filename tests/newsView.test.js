@@ -4,17 +4,23 @@
 
 const fs = require("fs");
 const NewsClient = require("../src/newsClient");
-
 const NewsModel = require("../src/newsModel");
 const NewsView = require("../src/newsView");
+require("jest-fetch-mock").enableMocks();
 
 describe("News view", () => {
-  it("displays two news items", () => {
+  beforeEach(() => {
     document.body.innerHTML = fs.readFileSync("./index.html");
+    model = new NewsModel();
+    client = new NewsClient();
+    view = new NewsView(model, client);
+  });
 
-    // 1. Setting up model and view
-    const model = new NewsModel();
-    const client = new NewsClient();
-    const view = new NewsView(model, client);
+  it("connects and fetches", (done) => {
+    fetch.mockResponseOnce(JSON.stringify(["test headline"]));
+    client.getNewsInfo("", (data) => {
+      expect(data).toEqual(["test headline"]);
+      done();
+    });
   });
 });

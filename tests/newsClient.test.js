@@ -1,19 +1,18 @@
-const Client = require('../src/newsClient');
+const NewsClient = require("../src/newsClient");
 
-require('jest-fetch-mock').enableMocks()
+require("jest-fetch-mock").enableMocks();
 
-describe('Client class', () => {
-  it('calls fetch and loads data', (done) => {
-    const client = new Client();
+describe("NewsClient class", () => {
+  it("calls fetch and loads news info", (done) => {
+    const client = new NewsClient();
+    fetch.mockResponseOnce(
+      JSON.stringify({
+        headline: "headline1",
+      })
+    );
 
-    fetch.mockResponseOnce(JSON.stringify({
-      headline: "Headline",
-      id: 123
-    }));
-
-    client.getNewsInfo((returnedDataFromApi) => {
-      expect(returnedDataFromApi.name).toBe("headline");
-      expect(returnedDataFromApi.id).toBe(123);
+    client.getNewsInfo("", (repoInfo) => {
+      expect(repoInfo.headline).toBe("headline1");
 
       done();
     });
