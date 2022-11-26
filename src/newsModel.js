@@ -1,18 +1,10 @@
 class NewsModel {
   constructor() {
-    this.newsArray = [];
+    this.newsInfo = [];
   }
 
-  getNews() {
-    return this.newsArray;
-  }
-
-  addNews(news) {
-    this.newsArray.push(news);
-  }
-
-  reset() {
-    this.newsArray = [];
+  getNewsInfo() {
+    return this.newsInfo;
   }
 }
 

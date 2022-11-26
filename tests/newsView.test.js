@@ -3,6 +3,7 @@
  */
 
 const fs = require("fs");
+const NewsClient = require("../src/newsClient");
 
 const NewsModel = require("../src/newsModel");
 const NewsView = require("../src/newsView");
@@ -13,15 +14,7 @@ describe("News view", () => {
 
     // 1. Setting up model and view
     const model = new NewsModel();
-    const view = new NewsView(model);
-    model.addNews("Headline1");
-    model.addNews("Headline2");
-
-    // 2. Display the notes on the page
-    view.displayNews();
-
-    // 3. There should now be 2 div.note on the page
-    expect(document.querySelectorAll("div.news").length).toEqual(2);
-    expect(document.querySelectorAll("div.news")[0].textContent).toEqual('Headline1');
+    const client = new NewsClient();
+    const view = new NewsView(model, client);
   });
 });
