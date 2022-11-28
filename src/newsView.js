@@ -13,6 +13,7 @@ class NewsView {
       const searchTopic = searchInputEl.value;
 
       this.client.getNewsInfo(searchTopic, (newsData) => {
+        this.model.setNews(newsData);
         this.display(newsData);
       });
     });
@@ -23,11 +24,8 @@ class NewsView {
     });
   }
 
-  display(newsData) {
-    this.model.setNews(newsData);
-    console.log(newsData.response)
-
-    const headlinesList = newsData.response.results;
+  display() {
+    const headlinesList = this.model.getNews().response.results;
 
     headlinesList.forEach((headline) => {
       const space = document.createElement("br");
